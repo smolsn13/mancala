@@ -2,6 +2,7 @@
   <html>
     <head>
       <meta charset='utf-8' />
+      <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
       <link rel='stylesheet' href='./css/style.css' />
       <title>Mancala</title>
     </head>
@@ -11,27 +12,31 @@
       <div class='gameboard'>
 
         <div class='p2store'></div>
+          <div class='rows'>
+            <div class='p2row'>
+              <div class='pit'>1</div>
+              <div class='pit'>2</div>
+              <div class='pit'>3</div>
+              <div class='pit'>4</div>
+              <div class='pit'>5</div>
+              <div class='pit'>6</div>
+            </div>
 
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-        <div class='pit'></div>
-
+            <div class='p1row'>
+              <div class='pit'>7</div>
+              <div class='pit'>8</div>
+              <div class='pit'>9</div>
+              <div class='pit'>10</div>
+              <div class='pit'>11</div>
+              <div class='pit'>12</div>
+            </div>
+          </div>
         <div class='p1store'></div>
 
       </div>
 
       <div class='turncounter'>
-        It's <span class='turn'></span>turn
+        <p>It's <span class='turn'></span>'s turn</p>
       </div>
 
       <script rel='text/javascript' src='./js/script.js'></script>
