@@ -33,7 +33,7 @@ function startBoard() {  //sets gameboard when page loads and after each turn
     $('.bin' + i).html('');
     var stones = '';
 
-    for (var j = 0; j < stonesArr[i]; j++) {
+    for (var j = 0; j < stonesArr[i].currentStones; j++) {
       stones += '<div class="stone"></div>';
       }
     $('.bin' + i).append(stones);
@@ -47,33 +47,33 @@ var takeTurn = function(elem) {
   // console.log(startPos);
   var currentPos = startPos;
   // console.log(currentPos);
-  var numStones = stonesArr[startPos];
+  var numStones = stonesArr[startPos].currentStones;
   // console.log(numStones);
-  stonesArr[startPos] = 0;
+  stonesArr[startPos].currentStones = 0;
   // console.log(stonesArr[startPos]);
 
   for (var i = 0; i < numStones; ) {
     var pit = ++currentPos % stonesArr.length;
     // console.log(pit);
     // console.log(typeof pit);
-    var stones = stonesArr[pit];
+    var stones = stonesArr[pit].currentStones;
     stones++;
     i++;
-    stonesArr[pit] = stones;
+    stonesArr[pit].currentStones = stones;
     // console.log(stonesArr[pit]);
   }
     if (i == numStones) {
       if (stones == 1) {
-        if (endingSide(startPos, pit) && stonesArr[adjacentPit[pit]] !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
+        if (endingSide(startPos, pit) && stonesArr[adjacentPit[pit]].currentStones !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
           // console.log("bonus!");
-          var bonus = stonesArr[adjacentPit[pit]] + 1;
+          var bonus = stonesArr[adjacentPit[pit]].currentStones + 1;
           if (pit >= 1 && pit <= 6) {
-            stonesArr[7] += bonus;  //adds to player2 store
+            stonesArr[7].currentStones += bonus;  //adds to player2 store
           } else if (pit >=8 && pit <= 13) {
-            stonesArr[0] += bonus;  //adds to player1 store
+            stonesArr[0].currentStones += bonus;  //adds to player1 store
           }
-          stonesArr[pit] = 0;
-          stonesArr[adjacentPit[pit]] = 0;  //clears both pits after bonus is distributed
+          stonesArr[pit].currentStones = 0;
+          stonesArr[adjacentPit[pit]].currentStones = 0;  //clears both pits after bonus is distributed
         }
       }
     }
@@ -85,7 +85,22 @@ var endingSide = function(startPit, endPit) {  //
 };
 
 $(document).ready(function() {
-  stonesArr = [0,4,4,4,4,4,4,0,4,4,4,4,4,4]; //sets initial number of stones in each pit
+  stonesArr = [
+    {currentStones: 0, owner: 1},
+    {currentStones: 4, owner: 2},
+    {currentStones: 4, owner: 2},
+    {currentStones: 4, owner: 2},
+    {currentStones: 4, owner: 2},
+    {currentStones: 4, owner: 2},
+    {currentStones: 4, owner: 2},
+    {currentStones: 0, owner: 2},
+    {currentStones: 4, owner: 1},
+    {currentStones: 4, owner: 1},
+    {currentStones: 4, owner: 1},
+    {currentStones: 4, owner: 1},
+    {currentStones: 4, owner: 1},
+    {currentStones: 4, owner: 1},
+    ]; //sets initial number of stones in each pit
   // console.log("ready!");
   startBoard();  //sets up the board to begin game
   checkPlayer();  //checks turncounter for current player turn
