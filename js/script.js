@@ -62,7 +62,6 @@ var takeTurn = function(elem) {
     }
   }
 
-
   console.log(nextPos);
   var numStones = stonesArr[startPos].currentStones;
   stonesArr[startPos].currentStones = 0;
@@ -110,13 +109,10 @@ var takeTurn = function(elem) {
       }
     }
   }
-
-
-//need to track ending pit for each move, use that value below for bonus calculation
   nextPos--;
   if (stonesArr[nextPos].currentStones === 1) {
     if (endingSide(startPos, nextPos) && stonesArr[adjacentPit[nextPos]].currentStones !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
-      // console.log("bonus!");
+      console.log("bonus!");
       var bonus = stonesArr[adjacentPit[nextPos]].currentStones + 1;
       if (nextPos >= 1 && nextPos <= 6) {
         stonesArr[7].currentStones += bonus;  //adds to player2 store
@@ -127,6 +123,44 @@ var takeTurn = function(elem) {
       stonesArr[adjacentPit[nextPos]].currentStones = 0;  //clears both pits after bonus is distributed
     }
   }
+
+  var p1store = stonesArr[0].currentStones;
+  var box1 = stonesArr[1].currentStones;
+  var box2 = stonesArr[2].currentStones;
+  var box3 = stonesArr[3].currentStones;
+  var box4 = stonesArr[4].currentStones;
+  var box5 = stonesArr[5].currentStones;
+  var box6 = stonesArr[6].currentStones;
+  var p2store = stonesArr[7].currentStones;
+  var box8 = stonesArr[8].currentStones;
+  var box9 = stonesArr[9].currentStones;
+  var box10 = stonesArr[10].currentStones;
+  var box11 = stonesArr[11].currentStones;
+  var box12 = stonesArr[12].currentStones;
+  var box13 = stonesArr[13].currentStones;
+
+  var checkWinner = function() {
+    if (box1 === 0 && box2 === 0 && box3 === 0 && box4 === 0 && box5 === 0 && box6 === 0) {
+        var jackpot = stonesArr[8].currentStones + stonesArr[9].currentStones +
+        stonesArr[10].currentStones + stonesArr[11].currentStones +
+        stonesArr[12].currentStones + stonesArr[13].currentStones;
+        stonesArr[0].currentStones += jackpot;
+        gameOver = true;
+        if (stonesArr[0].currentStones > stonesArr[7].currentStones) {
+          console.log("Player 1 wins!");
+        }
+      } else if (box8 === 0 && box9 === 0 && box10 === 0 && box11 === 0 && box12 === 0 && box13 === 0) {
+          var jackpot = stonesArr[1].currentStones + stonesArr[2].currentStones +
+          stonesArr[3].currentStones + stonesArr[4].currentStones +
+          stonesArr[5].currentStones + stonesArr[6].currentStones;
+          stonesArr[7].currentStones += jackpot;
+          gameOver = true;
+          if (stonesArr[7].currentStones > stonesArr[0].currentStones) {
+            console.log("Player 2 wins!");
+          }
+        }
+  }
+
   var goAgain = function() {
     if (turn === 'p1') {
       if (nextPos === 0) {
@@ -145,7 +179,8 @@ var takeTurn = function(elem) {
         $('.turn').text('Player 1');
       }
     }
-  };
+  }
+  checkWinner();
   goAgain();
 };
 
@@ -173,9 +208,9 @@ $(document).ready(function() {
     ];
   // console.log("ready!");
   startBoard();  //sets up the board to begin game
-  // checkPlayer();  //checks turncounter for current player turn
+  // checkPlayer();
 
-  $('.rows').on('click', '.pit', function() {  // click event listener
+  $('.rows').on('click', '.pit', function() {
     takeTurn($(this));  //starts player's turn
     startBoard();
     // checkPlayer();
