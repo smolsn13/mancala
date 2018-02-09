@@ -1,6 +1,6 @@
-var turncounter = 1;
+// var turncounter = 1;
 var stonesArr;
-var turn;
+var turn = 'p1';
 var gameOver = false;
 var adjacentPit = {
   '1': 13,
@@ -17,18 +17,18 @@ var adjacentPit = {
   '13': 1
 };
 
-var checkPlayer = function() {  //checks turncounter and updates player turn text
-  if (turncounter % 2 === 0) {
-    $('.turn').text('Player 2');
-    turn = 'p2';
-    // console.log('p2 turn');
-  } else {
-    $('.turn').text('Player 1');
-    turn = 'p1';
-    // console.log('p1 turn');
-  }
-  turncounter++;
-};
+// var checkPlayer = function() {  //checks turncounter and updates player turn text
+//   if (turncounter % 2 === 0) {
+//     $('.turn').text('Player 2');
+//     turn = 'p2';
+//     // console.log('p2 turn');
+//   } else {
+//     $('.turn').text('Player 1');
+//     turn = 'p1';
+//     // console.log('p1 turn');
+//   }
+//   turncounter++;
+// };
 
 function startBoard() {  //sets gameboard when page loads and after each turn
   // console.log("game loaded");
@@ -127,8 +127,26 @@ var takeTurn = function(elem) {
       stonesArr[adjacentPit[nextPos]].currentStones = 0;  //clears both pits after bonus is distributed
     }
   }
-
-
+  var goAgain = function() {
+    if (turn === 'p1') {
+      if (nextPos === 0) {
+        turn = 'p1';
+        $('.turn').text('Player 1');
+      } else {
+        turn = 'p2';
+        $('.turn').text('Player 2');
+      }
+    } else if (turn === 'p2') {
+      if (nextPos === 7) {
+        turn = 'p2';
+        $('.turn').text('Player 2');
+      } else {
+        turn = 'p1';
+        $('.turn').text('Player 1');
+      }
+    }
+  };
+  goAgain();
 };
 
 var endingSide = function(startPit, endPit) {
@@ -155,11 +173,11 @@ $(document).ready(function() {
     ];
   // console.log("ready!");
   startBoard();  //sets up the board to begin game
-  checkPlayer();  //checks turncounter for current player turn
+  // checkPlayer();  //checks turncounter for current player turn
 
   $('.rows').on('click', '.pit', function() {  // click event listener
     takeTurn($(this));  //starts player's turn
     startBoard();
-    checkPlayer();
+    // checkPlayer();
   });
 });
