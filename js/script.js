@@ -72,13 +72,13 @@ var takeTurn = function(elem) {
       console.log(nextPos)
       if (turn === 'p1') {
         stonesArr[nextPos].currentStones += 1;
-        if (nextPos === 14) {
+        if (nextPos === 13) {
           nextPos = 0;
         } else {
           nextPos++;
         }
       } else {
-        if (nextPos === 14) {
+        if (nextPos === 13) {
           nextPos = 0;
         } else {
           nextPos++;
@@ -88,13 +88,13 @@ var takeTurn = function(elem) {
       console.log(nextPos)
       if (turn === 'p2') {
         stonesArr[nextPos].currentStones += 1;
-        if (nextPos === 14) {
+        if (nextPos === 13) {
           nextPos = 0;
         } else {
           nextPos++;
         }
       } else {
-        if (nextPos === 14) {
+        if (nextPos === 13) {
           nextPos = 0;
         } else {
           nextPos++;
@@ -103,7 +103,7 @@ var takeTurn = function(elem) {
     } else {
       console.log(nextPos)
       stonesArr[nextPos].currentStones += 1;
-      if (nextPos === 14) {
+      if (nextPos === 13) {
         nextPos = 0;
       } else {
         nextPos++;
@@ -112,7 +112,8 @@ var takeTurn = function(elem) {
   }
 
 
-
+//need to track ending pit for each move, use that value below for bonus calculation
+  nextPos--;
   if (stonesArr[nextPos].currentStones === 1) {
     if (endingSide(startPos, nextPos) && stonesArr[adjacentPit[nextPos]].currentStones !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
       // console.log("bonus!");
