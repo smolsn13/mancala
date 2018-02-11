@@ -12,13 +12,37 @@ header {
   text-align: center;
 }
 
+h1 {
+  text-align: center;
+}
+
+#splash {
+  width: 50%;
+  height: 50%
+  border: 1px solid black;
+  margin: auto;
+  display: block;
+}
+
+#startgame {
+  height: 50px;
+  width: 150px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px;
+  margin: auto;
+  font-family: 'Rammetto One', cursive;
+  display: block;
+}
+
 .turncount {
   text-align: center;
+  display: none;
 }
 
 .gameboard {
     margin: 30px auto;
-  	display: flex;
+  	display: none;
   	border: 1px solid black;
   	width: 1200px;
   	height: 400px;
@@ -49,8 +73,8 @@ header {
 
 .pit {
   border: 1px solid black;
-  height: 120px;
-  width: 120px;
+  height: 125px;
+  width: 125px;
   margin: 10px 10px 10px 10px;
   display: inline-block;
   border-radius: 20px;
