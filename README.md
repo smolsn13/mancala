@@ -30,10 +30,10 @@ other details of gameplay. I implemented a new function to better track the turn
 Days 6 and 7 were spent applying styling to include background images, making the stones appear more spherical, adding a splash screen with instructions and a Start button, as well as bug fixes and play tests.
 
 ## Future Enhancements
-A couple of known bugs exist:
-* Both players can click on either row during their turn.
+Unresolved bugs:
 * When the last stone will land in the far right pit on the bottom row, the first click doesn't work. If the player clicks their selected pit again, the stones will move but the last pit will not grant the bonus score. This is likely related to the loop that moves stones during the takeTurn function, as the wrapping proved to be a difficult problem to solve.
 * When the game winner modal pops up, the remaining stones do not move into the appropriate store - the correct player has won but it may be slightly confusing that stones appear to be left on the board.
+* Both players can click on either row during their turn.
 
 Some features I would like to add:
 * A reset button to start a new game
