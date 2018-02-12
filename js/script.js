@@ -30,7 +30,7 @@ function startBoard() {  //sets gameboard when page loads and after each turn
   }
 };
 
-var takeTurn = function(elem) {
+var takeTurn = function(elem) { 
   var startPos = parseInt(elem.attr('data-pit'));
 
   var nextPos = startPos + 1;
@@ -47,7 +47,7 @@ var takeTurn = function(elem) {
   var numStones = stonesArr[startPos].currentStones;
   stonesArr[startPos].currentStones = 0;
 
-  for (i = numStones; i > 0; i--){
+  for (i = numStones; i > 0; i--){      //logic for moving stones around the board and wrapping at the end of the loop
     if (nextPos === 0) {
       if (turn === 'p1') {
         stonesArr[nextPos].currentStones += 1;
@@ -116,13 +116,12 @@ var takeTurn = function(elem) {
   var box12 = stonesArr[12].currentStones;
   var box13 = stonesArr[13].currentStones;
 
-  var checkWinner = function() {
+  var checkWinner = function() {  //checks if one row is empty, declares the winner with a modal
     if (box1 === 0 && box2 === 0 && box3 === 0 && box4 === 0 && box5 === 0 && box6 === 0) {
       var jackpot = box8 + box9 + box10 + box11 + box12 + box13;
       p1store += jackpot;
       gameOver = true;
       if (p1store > p2store) {
-        console.log("Player 1 wins!");
         swal('We have a winner!', 'Player 1 wins!', 'success');
         startBoard();
       }
@@ -131,14 +130,13 @@ var takeTurn = function(elem) {
         p2store += jackpot;
         gameOver = true;
         if (p2store > p1store) {
-          console.log("Player 2 wins!");
           swal('We have a winner!', 'Player 2 wins!', 'success');
           startBoard();
         }
     }
   }
 
-  var goAgain = function() {
+  var goAgain = function() {   //changes the turn, gives player a second turn as applicable
     if (turn === 'p1') {
       if (nextPos === 0) {
         turn = 'p1';
@@ -161,20 +159,20 @@ var takeTurn = function(elem) {
   goAgain();
 };
 
-var endingSide = function(startPit, endPit) {
+var endingSide = function(startPit, endPit) {  //checks if stone started and ended on same side
   return ((startPit >= 1 && startPit <= 6) && (endPit >= 1 && endPit <= 6)) ||
     ((startPit >= 8 && startPit <= 13) && (endPit >= 8 && endPit <= 13));
 };
 
 $(document).ready(function() {
-  $('#startgame').on('click', function() {
+  $('#startgame').on('click', function() {   //hides the instructions when Start Game is clicked, shows gameboard
     $('#splash').hide('slow');
     $('#startgame').hide('slow');
     $('.gameboard').css('display', 'flex');
     $('.turncount').css('display', 'block');
   });
 
-  stonesArr = [
+  stonesArr = [                        //starting number of stones for each pit
     {currentStones: 0, owner: 'p1'},
     {currentStones: 4, owner: 'p2'},
     {currentStones: 4, owner: 'p2'},
@@ -193,7 +191,7 @@ $(document).ready(function() {
 
   startBoard();  //sets up the board to begin game
 
-  $('.rows').on('click', '.pit', function() {
+  $('.rows').on('click', '.pit', function() {  //activates click for the playable pits
     takeTurn($(this));  //starts player's turn
     startBoard();
   });
