@@ -38,20 +38,10 @@ h1 {
   display: block;
 }
 
-#newgame {
-  height: 50px;
-  width: 150px;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 20px;
-  margin: 40px auto 50px auto;
-  font-family: 'Rammetto One', cursive;
-  display: none;
-}
-
 .turncount {
   text-align: center;
   display: none;
+  font-size: 24px;
 }
 
 .gameboard {
@@ -67,8 +57,10 @@ h1 {
 .store {
   flex: 1;
   margin: 20px;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+            inset 5px 5px 8px rgba(0,0,0,0.5);
 }
 
 .rows {
@@ -87,13 +79,15 @@ h1 {
 }
 
 .pit {
-  border: 1px solid black;
+  border: 2px solid black;
   height: 125px;
   width: 125px;
   margin: 10px 10px 10px 10px;
   display: inline-block;
   border-radius: 20px;
   text-align: center;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+            inset 5px 5px 8px rgba(0,0,0,0.5);
 }
 
 .stone {
