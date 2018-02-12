@@ -149,7 +149,7 @@ var takeTurn = function(elem) {
         stonesArr[0].currentStones += jackpot;
         gameOver = true;
         if (stonesArr[0].currentStones > stonesArr[7].currentStones) {
-          alert("Player 1 wins!");
+          console.log("Player 1 wins!");
         }
       } else if (stonesArr[8].currentStones === 0 && stonesArr[9].currentStones === 0 &&
         stonesArr[10].currentStones === 0 && stonesArr[11].currentStones === 0 &&
@@ -160,7 +160,7 @@ var takeTurn = function(elem) {
           stonesArr[7].currentStones += jackpot;
           gameOver = true;
           if (stonesArr[7].currentStones > stonesArr[0].currentStones) {
-            alert("Player 2 wins!");
+            console.log("Player 2 wins!");
           }
         }
   }
@@ -195,8 +195,8 @@ var endingSide = function(startPit, endPit) {
 
 $(document).ready(function() {
   $('#startgame').on('click', function() {
-    $('#splash').hide();
-    $('#startgame').hide();
+    $('#splash').hide('slow');
+    $('#startgame').hide('slow');
     $('.gameboard').css('display', 'flex');
     $('.turncount').css('display', 'block');
   });

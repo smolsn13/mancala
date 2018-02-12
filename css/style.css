@@ -29,7 +29,7 @@ h1 {
   width: 150px;
   font-size: 18px;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 20px;
   margin: auto;
   font-family: 'Rammetto One', cursive;
   display: block;
@@ -46,6 +46,7 @@ h1 {
   	border: 1px solid black;
   	width: 1200px;
   	height: 400px;
+    background: url("../images/board.jpg");
   	border-radius: 30px;
 }
 
@@ -82,7 +83,7 @@ h1 {
 }
 
 .stone {
-  background: #3D85C6;
+  background: radial-gradient(circle at 15px 15px, #3D85C6, #000);
   float: left;
   margin: 5px 0 0 5px;
   width: 25px;
