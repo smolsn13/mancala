@@ -1,4 +1,3 @@
-// var turncounter = 1;
 var stonesArr;
 var turn = 'p1';
 var gameOver = false;
@@ -17,21 +16,7 @@ var adjacentPit = {
   '13': 1
 };
 
-// var checkPlayer = function() {  //checks turncounter and updates player turn text
-//   if (turncounter % 2 === 0) {
-//     $('.turn').text('Player 2');
-//     turn = 'p2';
-//     // console.log('p2 turn');
-//   } else {
-//     $('.turn').text('Player 1');
-//     turn = 'p1';
-//     // console.log('p1 turn');
-//   }
-//   turncounter++;
-// };
-
 function startBoard() {  //sets gameboard when page loads and after each turn
-  // console.log("game loaded");
 
   for (var i = 0; i < stonesArr.length; i++) {
 
@@ -43,13 +28,10 @@ function startBoard() {  //sets gameboard when page loads and after each turn
       }
     $('.bin' + i).append(stones);
   }
-  // console.log('board started');
 };
 
 var takeTurn = function(elem) {
-  // console.log('turn fired');
   var startPos = parseInt(elem.attr('data-pit'));
-  console.log(startPos);
 
   var nextPos = startPos + 1;
   if (turn === 'p1') {
@@ -62,13 +44,11 @@ var takeTurn = function(elem) {
     }
   }
 
-  console.log(nextPos);
   var numStones = stonesArr[startPos].currentStones;
   stonesArr[startPos].currentStones = 0;
 
   for (i = numStones; i > 0; i--){
     if (nextPos === 0) {
-      console.log(nextPos)
       if (turn === 'p1') {
         stonesArr[nextPos].currentStones += 1;
         if (nextPos === 13) {
@@ -84,7 +64,6 @@ var takeTurn = function(elem) {
         }
       }
     } else if (nextPos === 7) {
-      console.log(nextPos)
       if (turn === 'p2') {
         stonesArr[nextPos].currentStones += 1;
         if (nextPos === 13) {
@@ -100,7 +79,6 @@ var takeTurn = function(elem) {
         }
       }
     } else {
-      console.log(nextPos)
       stonesArr[nextPos].currentStones += 1;
       if (nextPos === 13) {
         nextPos = 0;
@@ -112,7 +90,6 @@ var takeTurn = function(elem) {
   nextPos--;
   if (stonesArr[nextPos].currentStones === 1) {
     if (endingSide(startPos, nextPos) && stonesArr[adjacentPit[nextPos]].currentStones !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
-      console.log("bonus!");
       var bonus = stonesArr[adjacentPit[nextPos]].currentStones + 1;
       if (nextPos >= 1 && nextPos <= 6) {
         stonesArr[7].currentStones += bonus;  //adds to player2 store
@@ -124,45 +101,41 @@ var takeTurn = function(elem) {
     }
   }
 
-  // var p1store = stonesArr[0].currentStones;
-  // var box1 = stonesArr[1].currentStones;
-  // var box2 = stonesArr[2].currentStones;
-  // var box3 = stonesArr[3].currentStones;
-  // var box4 = stonesArr[4].currentStones;
-  // var box5 = stonesArr[5].currentStones;
-  // var box6 = stonesArr[6].currentStones;
-  // var p2store = stonesArr[7].currentStones;
-  // var box8 = stonesArr[8].currentStones;
-  // var box9 = stonesArr[9].currentStones;
-  // var box10 = stonesArr[10].currentStones;
-  // var box11 = stonesArr[11].currentStones;
-  // var box12 = stonesArr[12].currentStones;
-  // var box13 = stonesArr[13].currentStones;
-  //
+  var p1store = stonesArr[0].currentStones;
+  var box1 = stonesArr[1].currentStones;
+  var box2 = stonesArr[2].currentStones;
+  var box3 = stonesArr[3].currentStones;
+  var box4 = stonesArr[4].currentStones;
+  var box5 = stonesArr[5].currentStones;
+  var box6 = stonesArr[6].currentStones;
+  var p2store = stonesArr[7].currentStones;
+  var box8 = stonesArr[8].currentStones;
+  var box9 = stonesArr[9].currentStones;
+  var box10 = stonesArr[10].currentStones;
+  var box11 = stonesArr[11].currentStones;
+  var box12 = stonesArr[12].currentStones;
+  var box13 = stonesArr[13].currentStones;
+
   var checkWinner = function() {
-    if (stonesArr[1].currentStones === 0 && stonesArr[2].currentStones === 0 &&
-      stonesArr[3].currentStones === 0 && stonesArr[4].currentStones === 0 &&
-      stonesArr[5].currentStones === 0 && stonesArr[6].currentStones === 0) {
-        var jackpot = stonesArr[8].currentStones + stonesArr[9].currentStones +
-        stonesArr[10].currentStones + stonesArr[11].currentStones +
-        stonesArr[12].currentStones + stonesArr[13].currentStones;
-        stonesArr[0].currentStones += jackpot;
+    if (box1 === 0 && box2 === 0 && box3 === 0 && box4 === 0 && box5 === 0 && box6 === 0) {
+      var jackpot = box8 + box9 + box10 + box11 + box12 + box13;
+      p1store += jackpot;
+      gameOver = true;
+      if (p1store > p2store) {
+        console.log("Player 1 wins!");
+        swal('We have a winner!', 'Player 1 wins!', 'success');
+        startBoard();
+      }
+    } else if (box8 === 0 && box9 === 0 && box10 === 0 && box11 === 0 && box12 === 0 && box13 === 0) {
+        var jackpot = box1 + box2 + box3 + box4 + box5 + box6;
+        p2store += jackpot;
         gameOver = true;
-        if (stonesArr[0].currentStones > stonesArr[7].currentStones) {
-          console.log("Player 1 wins!");
+        if (p2store > p1store) {
+          console.log("Player 2 wins!");
+          swal('We have a winner!', 'Player 2 wins!', 'success');
+          startBoard();
         }
-      } else if (stonesArr[8].currentStones === 0 && stonesArr[9].currentStones === 0 &&
-        stonesArr[10].currentStones === 0 && stonesArr[11].currentStones === 0 &&
-        stonesArr[12].currentStones === 0 && stonesArr[13].currentStones === 0) {
-          var jackpot = stonesArr[1].currentStones + stonesArr[2].currentStones +
-          stonesArr[3].currentStones + stonesArr[4].currentStones +
-          stonesArr[5].currentStones + stonesArr[6].currentStones;
-          stonesArr[7].currentStones += jackpot;
-          gameOver = true;
-          if (stonesArr[7].currentStones > stonesArr[0].currentStones) {
-            console.log("Player 2 wins!");
-          }
-        }
+    }
   }
 
   var goAgain = function() {
@@ -217,13 +190,11 @@ $(document).ready(function() {
     {currentStones: 4, owner: 'p1'},
     {currentStones: 4, owner: 'p1'},
     ];
-  // console.log("ready!");
+
   startBoard();  //sets up the board to begin game
-  // checkPlayer();
 
   $('.rows').on('click', '.pit', function() {
     takeTurn($(this));  //starts player's turn
     startBoard();
-    // checkPlayer();
   });
 });
