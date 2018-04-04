@@ -1,4 +1,3 @@
-// var turncounter = 1;
 var stonesArr;
 var turn = 'p1';
 var gameOver = false;
@@ -17,21 +16,7 @@ var adjacentPit = {
   '13': 1
 };
 
-// var checkPlayer = function() {  //checks turncounter and updates player turn text
-//   if (turncounter % 2 === 0) {
-//     $('.turn').text('Player 2');
-//     turn = 'p2';
-//     // console.log('p2 turn');
-//   } else {
-//     $('.turn').text('Player 1');
-//     turn = 'p1';
-//     // console.log('p1 turn');
-//   }
-//   turncounter++;
-// };
-
 function startBoard() {  //sets gameboard when page loads and after each turn
-  // console.log("game loaded");
 
   for (var i = 0; i < stonesArr.length; i++) {
 
@@ -43,13 +28,10 @@ function startBoard() {  //sets gameboard when page loads and after each turn
       }
     $('.bin' + i).append(stones);
   }
-  // console.log('board started');
 };
 
-var takeTurn = function(elem) {
-  // console.log('turn fired');
+var takeTurn = function(elem) { 
   var startPos = parseInt(elem.attr('data-pit'));
-  console.log(startPos);
 
   var nextPos = startPos + 1;
   if (turn === 'p1') {
@@ -62,13 +44,11 @@ var takeTurn = function(elem) {
     }
   }
 
-  console.log(nextPos);
   var numStones = stonesArr[startPos].currentStones;
   stonesArr[startPos].currentStones = 0;
 
-  for (i = numStones; i > 0; i--){
+  for (i = numStones; i > 0; i--){      //logic for moving stones around the board and wrapping at the end of the loop
     if (nextPos === 0) {
-      console.log(nextPos)
       if (turn === 'p1') {
         stonesArr[nextPos].currentStones += 1;
         if (nextPos === 13) {
@@ -84,7 +64,6 @@ var takeTurn = function(elem) {
         }
       }
     } else if (nextPos === 7) {
-      console.log(nextPos)
       if (turn === 'p2') {
         stonesArr[nextPos].currentStones += 1;
         if (nextPos === 13) {
@@ -100,7 +79,6 @@ var takeTurn = function(elem) {
         }
       }
     } else {
-      console.log(nextPos)
       stonesArr[nextPos].currentStones += 1;
       if (nextPos === 13) {
         nextPos = 0;
@@ -112,7 +90,6 @@ var takeTurn = function(elem) {
   nextPos--;
   if (stonesArr[nextPos].currentStones === 1) {
     if (endingSide(startPos, nextPos) && stonesArr[adjacentPit[nextPos]].currentStones !== 0) {  //checks if last stone is dropped in an empty pit, adds extra points for that player
-      console.log("bonus!");
       var bonus = stonesArr[adjacentPit[nextPos]].currentStones + 1;
       if (nextPos >= 1 && nextPos <= 6) {
         stonesArr[7].currentStones += bonus;  //adds to player2 store
@@ -139,29 +116,27 @@ var takeTurn = function(elem) {
   var box12 = stonesArr[12].currentStones;
   var box13 = stonesArr[13].currentStones;
 
-  var checkWinner = function() {
+  var checkWinner = function() {  //checks if one row is empty, declares the winner with a modal
     if (box1 === 0 && box2 === 0 && box3 === 0 && box4 === 0 && box5 === 0 && box6 === 0) {
-        var jackpot = stonesArr[8].currentStones + stonesArr[9].currentStones +
-        stonesArr[10].currentStones + stonesArr[11].currentStones +
-        stonesArr[12].currentStones + stonesArr[13].currentStones;
-        stonesArr[0].currentStones += jackpot;
+      var jackpot = box8 + box9 + box10 + box11 + box12 + box13;
+      p1store += jackpot;
+      gameOver = true;
+      if (p1store > p2store) {
+        swal('We have a winner!', 'Player 1 wins!', 'success');
+        startBoard();
+      }
+    } else if (box8 === 0 && box9 === 0 && box10 === 0 && box11 === 0 && box12 === 0 && box13 === 0) {
+        var jackpot = box1 + box2 + box3 + box4 + box5 + box6;
+        p2store += jackpot;
         gameOver = true;
-        if (stonesArr[0].currentStones > stonesArr[7].currentStones) {
-          console.log("Player 1 wins!");
+        if (p2store > p1store) {
+          swal('We have a winner!', 'Player 2 wins!', 'success');
+          startBoard();
         }
-      } else if (box8 === 0 && box9 === 0 && box10 === 0 && box11 === 0 && box12 === 0 && box13 === 0) {
-          var jackpot = stonesArr[1].currentStones + stonesArr[2].currentStones +
-          stonesArr[3].currentStones + stonesArr[4].currentStones +
-          stonesArr[5].currentStones + stonesArr[6].currentStones;
-          stonesArr[7].currentStones += jackpot;
-          gameOver = true;
-          if (stonesArr[7].currentStones > stonesArr[0].currentStones) {
-            console.log("Player 2 wins!");
-          }
-        }
+    }
   }
 
-  var goAgain = function() {
+  var goAgain = function() {   //changes the turn, gives player a second turn as applicable
     if (turn === 'p1') {
       if (nextPos === 0) {
         turn = 'p1';
@@ -184,13 +159,20 @@ var takeTurn = function(elem) {
   goAgain();
 };
 
-var endingSide = function(startPit, endPit) {
+var endingSide = function(startPit, endPit) {  //checks if stone started and ended on same side
   return ((startPit >= 1 && startPit <= 6) && (endPit >= 1 && endPit <= 6)) ||
     ((startPit >= 8 && startPit <= 13) && (endPit >= 8 && endPit <= 13));
 };
 
 $(document).ready(function() {
-  stonesArr = [
+  $('#startgame').on('click', function() {   //hides the instructions when Start Game is clicked, shows gameboard
+    $('#splash').hide('slow');
+    $('#startgame').hide('slow');
+    $('.gameboard').css('display', 'flex');
+    $('.turncount').css('display', 'block');
+  });
+
+  stonesArr = [                        //starting number of stones for each pit
     {currentStones: 0, owner: 'p1'},
     {currentStones: 4, owner: 'p2'},
     {currentStones: 4, owner: 'p2'},
@@ -206,13 +188,11 @@ $(document).ready(function() {
     {currentStones: 4, owner: 'p1'},
     {currentStones: 4, owner: 'p1'},
     ];
-  // console.log("ready!");
-  startBoard();  //sets up the board to begin game
-  // checkPlayer();
 
-  $('.rows').on('click', '.pit', function() {
+  startBoard();  //sets up the board to begin game
+
+  $('.rows').on('click', '.pit', function() {  //activates click for the playable pits
     takeTurn($(this));  //starts player's turn
     startBoard();
-    // checkPlayer();
   });
 });

@@ -5,6 +5,9 @@ body, html {
 
 body {
   font-family: 'Rammetto One', cursive;
+  background: url("../images/succulent.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 header {
@@ -12,24 +15,52 @@ header {
   text-align: center;
 }
 
+h1 {
+  text-align: center;
+}
+
+#splash {
+  width: 50%;
+  height: 50%
+  border: 1px solid black;
+  margin: auto;
+  display: block;
+}
+
+#startgame {
+  height: 50px;
+  width: 150px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 40px auto 50px auto;
+  font-family: 'Rammetto One', cursive;
+  display: block;
+}
+
 .turncount {
   text-align: center;
+  display: none;
+  font-size: 24px;
 }
 
 .gameboard {
     margin: 30px auto;
-  	display: flex;
+  	display: none;
   	border: 1px solid black;
   	width: 1200px;
   	height: 400px;
+    background: url("../images/board.jpg");
   	border-radius: 30px;
 }
 
 .store {
   flex: 1;
   margin: 20px;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+            inset 5px 5px 8px rgba(0,0,0,0.5);
 }
 
 .rows {
@@ -48,17 +79,19 @@ header {
 }
 
 .pit {
-  border: 1px solid black;
-  height: 120px;
-  width: 120px;
+  border: 2px solid black;
+  height: 125px;
+  width: 125px;
   margin: 10px 10px 10px 10px;
   display: inline-block;
   border-radius: 20px;
   text-align: center;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5),
+            inset 5px 5px 8px rgba(0,0,0,0.5);
 }
 
 .stone {
-  background: #3D85C6;
+  background: radial-gradient(circle at 15px 15px, #3D85C6, #000);
   float: left;
   margin: 5px 0 0 5px;
   width: 25px;

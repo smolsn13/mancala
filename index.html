@@ -9,9 +9,40 @@
     <body>
       <header id='header'>Mancala</header>
 
+      <div id='splash'>
+        <h1>How to play</h1>
+        <ol>
+          <li>
+            Each player has a store at one end of the board. Player 1 on the right, Player 2 on the left.
+          </li>
+          <li>
+            Player 1 starts by clicking one of the six boxes on the bottom row.
+            Stones move counter-clockwise, depositing one into each subsequent box
+            until stones run out. Player 2 starts by clicking a box in the top row.
+          </li>
+          <li>
+            If a player drops a stone in their own store, they score a point.
+            Players may not score for the opponent.
+          </li>
+          <li>
+            If the last stone is dropped in the player's store, they get another turn.
+          </li>
+          <li>
+            If the last stone is dropped in an empty box on the player's own side, they get that stone and
+            any stones in the box directly opposite.
+          </li>
+          <li>
+            The game ends when one row of six boxes is completely empty. The player with stones remaining
+            in their row captures all remaining stones. The player with the most
+            stones in their store wins.
+          </li>
+        </ol>
+        <button type='button' id='startgame'> Start Game</button>
+      </div>
+
       <div class='gameboard'>
 
-        <div class='store bin7' id='#pit7' data-pit='7'></div>
+        <div class='store bin7' id='#pit7' data-pit='7'>Player 2</div>
 
           <div class='rows'>
             <div class='p2row'>
@@ -33,7 +64,7 @@
             </div>
           </div>
 
-        <div class='store bin0' id='#pit0' data-pit='0'></div>
+        <div class='store bin0' id='#pit0' data-pit='0'>Player 1</div>
 
       </div>
 
@@ -42,9 +73,10 @@
       </div>
 
       <script
-  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <script rel='text/javascript' src='./js/script.js'></script>
     </body>
   </html>
